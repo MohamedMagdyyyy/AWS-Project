@@ -140,3 +140,29 @@ def lambda_handler(event, context):
     return 'Successfully processed {} records.'.format(len(event['Records']))
 
 ```
+
+#Data Processing Layer
+In the data processing layer, to automate the loading of customer events in Redshift, I was facing a challenge where AWS Glue was unable to corretly learn the JSON schema however, it could successfully learn the schema from a CSV file, thus to load the data in Redshift I preformed the ETL job locally on my machine (can be automated using cronjob) using a Bash Script where the Bash Script automates the downloading of raw data, transformation, uploading of transformed data in CSV S3 Bucket and finally to run the Glue Job to load the Data from CSV S3 Bucket to Redshift
+
+The code for the bash script transform-script.sh is as following:
+```python
+# getting all JSON from S3 bucket to local
+aws s3 sync s3://batch-process-ecom ./batch-process-ecom 
+
+# deleting all JSON from S3 bucket
+aws s3 rm s3://batch-process-ecom --recursive
+
+for filename in ./batch-process-ecom/*; do
+  TIMESTAMP=`date +%Y-%m-%d_%H:%M:%S:%N`
+  echo $filename
+  dasel -r json -w csv < $filename > ./staging-bucket-ecom/$TIMESTAMP.csv
+done
+
+# uploading the files to the staging S3 Bucket 
+aws s3 sync ./staging-bucket-ecom s3://staging-bucket-ecom
+
+# deleting all local files after transformations
+rm -rf ./batch-process-ecom/*
+rm -rf ./staging-bucket-ecom/*
+aws glue start-job-run --job-name batch-etl-job
+```
