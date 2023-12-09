@@ -29,6 +29,9 @@ AWS API-Gateway is setup an created to support a POST request where customer eve
 A event-streaming.py python script is created to simulate customer events where every line of the dataset is transformed to json and POSTed to the API-Gateway.
 
 The code for the event-streaming.py is as following
+
+
+
 import pandas as pd
 import requests
 
