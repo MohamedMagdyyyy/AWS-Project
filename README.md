@@ -166,3 +166,19 @@ rm -rf ./batch-process-ecom/*
 rm -rf ./staging-bucket-ecom/*
 aws glue start-job-run --job-name batch-etl-job
 ```
+#Data Storage & Visualization Layer
+
+
+The end users of the AWS data platform are customers who are using the E-Commerce website/application, and data analytics team who are performing analytics to extract insights and drive business growth. The DynamoDB was mainly used for it's fast write and read operations to support customer Queries in the E-Commerce front end such as
+
+Listing all invoices
+Searching for specific invoice number
+Furthermore, for data analytics operations Redshift datawarehouse was used and connected to Tableau as following
+
+First we obtain our Redshift cluster end point and add it to Tableau as following
+
+![68747470733a2f2f692e706f7374696d672e63632f52684657773253312f53637265656e73686f742d323032322d30372d30312d3132323733392e706e67](https://github.com/MohamedMagdyyyy/AWS-Project/assets/153362625/20872181-2860-415e-8792-4d39f2701efb)
+
+Then analysis can be preformed (i.e Checking which items had the most purchases)
+![68747470733a2f2f692e706f7374696d672e63632f4b594362305644722f746573742e706e67](https://github.com/MohamedMagdyyyy/AWS-Project/assets/153362625/88f9486b-9407-4ac2-aa6b-92ad686af4f7)
+
