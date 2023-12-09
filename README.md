@@ -166,6 +166,10 @@ rm -rf ./batch-process-ecom/*
 rm -rf ./staging-bucket-ecom/*
 aws glue start-job-run --job-name batch-etl-job
 ```
+
+
+
+
 #Data Storage & Visualization Layer
 
 
