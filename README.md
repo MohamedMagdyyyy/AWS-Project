@@ -42,11 +42,12 @@ if __name__ == '__main__':
         event = data.loc[i].to_json()
         response = requests.post(BASE_URL, event)
         print(response)
-
+```
 
 Then a Lambda is invoked whenever an event is POSTed to the API-Gateway, the Lambda Function takes the event and produces it to a kinesis stream for buffering to avoid any stalling of the DynamoDB database due to high load and to allow for a scalable messaging queue service.
 
 The code for the lambda function data-ingestion is as following
+```python
 import json
 import boto3
 
@@ -67,5 +68,5 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'event': json_data
     }
-
+```
         
