@@ -30,6 +30,7 @@ A event-streaming.py python script is created to simulate customer events where 
 
 The code for the event-streaming.py is as following:
 
+```python
 import pandas as pd
 import requests
 
@@ -41,6 +42,7 @@ if __name__ == '__main__':
         event = data.loc[i].to_json()
         response = requests.post(BASE_URL, event)
         print(response)
+
 
 Then a Lambda is invoked whenever an event is POSTed to the API-Gateway, the Lambda Function takes the event and produces it to a kinesis stream for buffering to avoid any stalling of the DynamoDB database due to high load and to allow for a scalable messaging queue service.
 
