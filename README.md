@@ -26,6 +26,7 @@ The attributes of the dataset is as following
 # Data Ingestion Layer
 
 Ingestion Pipeline
+
 AWS API-Gateway is setup an created to support a POST request where customer events are POSTed to the API-Gateway automatically.
 
 A event-streaming.py python script is created to simulate customer events where every line of the dataset is transformed to json and POSTed to the API-Gateway.
@@ -145,7 +146,6 @@ def lambda_handler(event, context):
 
 #Data Processing Layer
 
-
 In the data processing layer, to automate the loading of customer events in Redshift, I was facing a challenge where AWS Glue was unable to corretly learn the JSON schema however, it could successfully learn the schema from a CSV file, thus to load the data in Redshift I preformed the ETL job locally on my machine (can be automated using cronjob) using a Bash Script where the Bash Script automates the downloading of raw data, transformation, uploading of transformed data in CSV S3 Bucket and finally to run the Glue Job to load the Data from CSV S3 Bucket to Redshift
 
 The code for the bash script transform-script.sh is as following:
@@ -175,8 +175,6 @@ aws glue start-job-run --job-name batch-etl-job
 
 
 #Data Storage & Visualization Layer
-
-
 
 The end users of the AWS data platform are customers who are using the E-Commerce website/application, and data analytics team who are performing analytics to extract insights and drive business growth. The DynamoDB was mainly used for it's fast write and read operations to support customer Queries in the E-Commerce front end such as
 
